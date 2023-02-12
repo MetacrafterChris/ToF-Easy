@@ -27,9 +27,9 @@ contract MyToken is IERC20 {
     mapping(address => uint256) private _balances;
     mapping (address => mapping(address => uint256)) private _allowances;
 
-    constructor(string memory name_, string memory symbol_) {
-        _name = name_;
-        _symbol = symbol_;
+    constructor(string memory name, string memory symbol) {
+        _name = name;
+        _symbol = symbol;
         owner = msg.sender;
     }
 
