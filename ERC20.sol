@@ -50,51 +50,51 @@ contract MyToken is IERC20 {
         return _balances[account];
     }
 
-    function transfer(address _to, uint256 _amount) public returns (bool) {
-        _transfer(msg.sender, _to, _amount);
+    function transfer(address to, uint256 amount) public returns (bool) {
+        _transfer(msg.sender, to, amount);
         return true;
     }
 
-    function transferFrom(address _from, address _to, uint256 _amount) public returns (bool) {
-        _spendAllowance(_from, msg.sender, _amount);
-        _transfer(_from, _to, _amount);
+    function transferFrom(address from, address to, uint256 amount) public returns (bool) {
+        _spendAllowance(from, msg.sender, amount);
+        _transfer(from, to, amount);
         return true;
     }
 
-    function _transfer(address _from, address _to, uint256 _amount) internal {
-        require(_balances[_from] >= _amount, "You don't have that much!");
-        _balances[_from] -= _amount;
-        _balances[_to] += _amount;
-        emit Transfer(_from, _to, _amount);
+    function _transfer(address from, address to, uint256 amount) internal {
+        require(_balances[from] >= amount, "You don't have that much!");
+        _balances[from] -= amount;
+        _balances[to] += amount;
+        emit Transfer(from, to, amount);
     }
 
-    function allowance(address _owner, address _spender) public view returns (uint256) {
-        return _allowances[_owner][_spender];
+    function allowance(address _owner, address spender) public view returns (uint256) {
+        return _allowances[_owner][spender];
     }
 
-    function approve(address _spender, uint256 _amount) public returns (bool) {
-        _approve(msg.sender, _spender, _amount);
-        emit Approval(msg.sender, _spender, _amount);
+    function approve(address spender, uint256 amount) public returns (bool) {
+        _approve(msg.sender, spender, amount);
+        emit Approval(msg.sender, spender, amount);
         return true;
     }
 
-    function mint(address _to, uint256 _amount) public onlyOwner returns (bool) {
-        _totalSupply += _amount;
-        _balances[_to] += _amount;
-        emit Transfer(address(0), _to, _amount);
+    function mint(address to, uint256 amount) public onlyOwner returns (bool) {
+        _totalSupply += amount;
+        _balances[to] += amount;
+        emit Transfer(address(0), to, amount);
         return true;
     }
 
-    function _approve(address _owner, address _spender, uint256 _amount) internal {
-        _allowances[_owner][_spender] = _amount;
+    function _approve(address _owner, address spender, uint256 amount) internal {
+        _allowances[_owner][spender] = amount;
     }
     
-    function _spendAllowance(address _owner, address _spender, uint256 _amount) internal {
-        require(_allowances[_owner][_spender] >= _amount, "ERC20: Not enough allowance");
-        if (_allowances[_owner][_spender] != type(uint256).max) {
-            _allowances[_owner][_spender] -= _amount;
+    function _spendAllowance(address _owner, address spender, uint256 amount) internal {
+        require(_allowances[_owner][spender] >= amount, "ERC20: Not enough allowance");
+        if (_allowances[_owner][spender] != type(uint256).max) {
+            _allowances[_owner][spender] -= amount;
         }
-        emit Approval(_owner, _spender, _allowances[_owner][_spender]);
+        emit Approval(_owner, spender, _allowances[_owner][spender]);
     }
 
 }
