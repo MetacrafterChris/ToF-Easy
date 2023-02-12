@@ -82,9 +82,7 @@ contract MyToken {
     
     function _spendAllowance(address _owner, address spender, uint256 amount) internal {
         require(_allowances[_owner][spender] >= amount, "ERC20: Not enough allowance");
-        if (_allowances[_owner][spender] != type(uint256).max) {
-            _allowances[_owner][spender] -= amount;
-        }
+        _allowances[_owner][spender] -= amount;
         emit Approval(_owner, spender, _allowances[_owner][spender]);
     }
 
